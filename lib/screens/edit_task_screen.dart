@@ -3,6 +3,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/auth.dart';
 import '../providers/task.dart';
 import '../providers/tasks.dart';
 
@@ -286,13 +287,15 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                                                   setState(() {
                                                     _selectedEmployee = 'John (Assume)';
                                                   });
+                                                  // * assume this is the receiver id
+                                                  var receiverId = Provider.of<Auth>(context, listen: false).userId;
                                                   _editedTask = Task(
                                                     id: _editedTask?.id,
                                                     title: _editedTask?.title,
                                                     description: _editedTask?.description,
                                                     startDate: _editedTask?.startDate,
                                                     endDate: _editedTask?.endDate,
-                                                    receiverId: 'xxtjdxAEccYX2xzvf5KebxD9jp62',
+                                                    receiverId: receiverId,
                                                   );
                                                   Navigator.pop(context);
                                                 },
@@ -320,6 +323,47 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                           ),
                         ),
                       ),
+                      _editedTask?.id != null
+                          ? SizedBox(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text('Delete Task'),
+                                          content: Text('Confirm to delete task?'),
+                                          actions: [
+                                            TextButton(
+                                              child: const Text(' Yes'),
+                                              onPressed: () async {
+                                                await Provider.of<Tasks>(context, listen: false)
+                                                    .deleteTask(_editedTask?.id ?? '');
+                                                Navigator.of(context)
+                                                  ..pop()
+                                                  ..pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                                child: const Text(' Cancel'),
+                                                onPressed: () async {
+                                                  Navigator.of(context).pop();
+                                                }),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    'Delete Task',
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
                     ],
                   ),
                 ),

@@ -29,10 +29,11 @@ class Tasks with ChangeNotifier {
   }
 
   Future<void> fetchAndSetTasks([bool isCompleted = false]) async {
-    var url = Uri.parse('${Constants.baseUrl}tasks.json?auth=$authToken&');
+    var url = Uri.parse('${Constants.baseUrl}tasks.json?auth=$authToken&orderBy="receiverId"&equalTo="$userId"');
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>?;
+      debugPrint(response.body);
       if (extractedData == null) {
         return;
       }

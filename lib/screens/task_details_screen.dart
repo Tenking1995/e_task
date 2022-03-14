@@ -96,44 +96,44 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: OutlinedButton(
+                child: ElevatedButton(
                   onPressed: () {
                     if ((loadedTask.progress ?? 0) < 100) {
                       showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text('Progress'),
-                              content: TextField(
-                                onChanged: (value) {},
-                                keyboardType: TextInputType.number,
-                                controller: _progressTextFieldController,
-                                decoration: InputDecoration(hintText: "Enter Value"),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('Okay'),
-                                  onPressed: () async {
-                                    if (int.tryParse(_progressTextFieldController.text) != null &&
-                                        int.tryParse(_progressTextFieldController.text)! < 100 &&
-                                        int.tryParse(_progressTextFieldController.text)! >= 0) {
-                                      loadedTask.progress = int.parse(_progressTextFieldController.text);
-                                      await Provider.of<Tasks>(context, listen: false)
-                                          .updateTask(loadedTask.id ?? '', loadedTask);
-                                      debugPrint('showDialog');
-                                      Navigator.of(context).pop();
-                                      setState(() {});
-                                    }
-                                  },
-                                )
-                              ],
-                            );
-                          });
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Progress'),
+                            content: TextField(
+                              onChanged: (value) {},
+                              keyboardType: TextInputType.number,
+                              controller: _progressTextFieldController,
+                              decoration: InputDecoration(hintText: "Enter Value"),
+                            ),
+                            actions: [
+                              TextButton(
+                                child: const Text('Okay'),
+                                onPressed: () async {
+                                  if (int.tryParse(_progressTextFieldController.text) != null &&
+                                      int.tryParse(_progressTextFieldController.text)! < 100 &&
+                                      int.tryParse(_progressTextFieldController.text)! >= 0) {
+                                    loadedTask.progress = int.parse(_progressTextFieldController.text);
+                                    await Provider.of<Tasks>(context, listen: false)
+                                        .updateTask(loadedTask.id ?? '', loadedTask);
+                                    debugPrint('showDialog');
+                                    Navigator.of(context).pop();
+                                    setState(() {});
+                                  }
+                                },
+                              )
+                            ],
+                          );
+                        },
+                      );
                     }
                   },
                   child: Text(
                     'Progress now: ${loadedTask.progress ?? 0}%',
-                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
               ),
