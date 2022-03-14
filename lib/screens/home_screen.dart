@@ -1,0 +1,90 @@
+import 'package:e_task/providers/tasks.dart';
+import 'package:e_task/screens/edit_task_screen.dart';
+import 'package:e_task/widgets/task_list.dart';
+import 'package:flutter/material.dart';
+import '../widgets/app_drawer.dart';
+import 'package:provider/provider.dart';
+
+enum HomeOptions {
+  Add,
+  Show,
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    // Provider.of<Products>(context).fetchAndSetProducts(); //  not working
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<Products>(context).fetchAndSetProducts();
+    // });
+    // or in didChangeDependencies
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Tasks>(context).fetchAndSetTasks().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ETask'),
+        actions: [
+          PopupMenuButton(
+            onSelected: (HomeOptions selectedValue) {
+              setState(() {
+                if (selectedValue == HomeOptions.Add) {
+                  // _showOnlyCompleted = true;
+                   Navigator.of(context).pushNamed(EditTaskScreen.routeName);
+                } 
+                // else {
+                //   _showOnlyCompleted = false;
+                // }
+              });
+            },
+            itemBuilder: (_) => [
+              const PopupMenuItem(child: Text('Add Task (Employer Test)'), value: HomeOptions.Add),
+              // const PopupMenuItem(child: Text('Show All'), value: HomeOptions.Show),
+            ],
+            icon: const Icon(Icons.add),
+          ),
+          // Consumer<Cart>(
+          //   builder: (_, cart, ch) => Badge(
+          //     child: ch,
+          //     value: cart.itemCount.toString(),
+          //   ),
+          //   child: IconButton(
+          //     icon: const Icon(Icons.shopping_cart),
+          //     onPressed: () {
+          //       // Navigator.of(context).pushNamed(CartScreen.routeName);
+          //     },
+          //   ),
+          // ),
+        ],
+      ),
+      drawer: AppDrawer(),
+      body: _isLoading ? const Center(child: CircularProgressIndicator()) : TaskList()// ProductsGrid(_showOnlyFavorites),
+    );
+  }
+}
