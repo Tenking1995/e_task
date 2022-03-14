@@ -133,7 +133,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   },
                   child: Text(
                     'Progress now: ${loadedTask.progress ?? 0}%',
-                    style: const TextStyle(color: Colors.blue),
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
               ),
