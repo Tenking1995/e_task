@@ -1,16 +1,8 @@
-import 'package:e_task/providers/tasks.dart';
-import 'package:e_task/screens/edit_task_screen.dart';
-import 'package:e_task/screens/home_screen.dart';
-import 'package:e_task/screens/manage_tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'getxReferFolder/common/app_translations.dart';
-import 'providers/auth.dart';
-import 'screens/auth_screen.dart';
-import 'screens/splash_screen.dart';
-import 'screens/task_details_screen.dart';
 import 'getxReferFolder/getx_features.dart';
 
 void main() => runApp(MyApp());
@@ -24,32 +16,35 @@ class MyApp extends StatelessWidget {
       fallbackLocale: AppTranslations.fallbackLocale,
       translations: AppTranslations(),
       home: Scaffold(
-        appBar: AppBar(title: Text('Scaffold AppBar E-Task')),
+        appBar: AppBar(title: const Text('Scaffold AppBar E-Task')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ElevatedButton(
-                child: Text("Show Snackbar"),
+                child: Text(
+                  "Show Snackbar",
+                  style: GoogleFonts.lato(fontSize: 20),
+                ),
                 onPressed: () {
                   GetxFeatures().showCustomSnackbar();
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ElevatedButton(
-                child: Text("Show Dialog"),
+                child: const Text("Show Dialog"),
                 onPressed: () {
                   GetxFeatures().showCustomDialog();
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ElevatedButton(
-                child: Text("Show Botom Sheet"),
+                child: const Text("Show Botom Sheet"),
                 onPressed: () {
                   GetxFeatures().showBottomSheet();
                 },

@@ -1,5 +1,6 @@
 import 'package:e_task/screens/edit_task_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
@@ -12,7 +13,7 @@ class TaskItem extends StatelessWidget {
   final int progress;
   final bool isEditFlow;
 
-  TaskItem(this.id, this.title, this.progress, {this.isEditFlow = false});
+  const TaskItem(this.id, this.title, this.progress, {this.isEditFlow = false});
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +34,15 @@ class TaskItem extends StatelessWidget {
                   Center(
                     child: Text(
                       title,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: GoogleFonts.lato(fontSize: 20),
                     ),
                   ),
                   Row(
                     children: [
                       Text('Progress: $progress%'),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       Icon(isEditFlow ? Icons.edit : Icons.remove_red_eye),
                     ],
                   )
