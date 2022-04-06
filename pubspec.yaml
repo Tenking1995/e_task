@@ -54,6 +54,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.0
   geolocator: ^8.2.0
   geocoding: ^2.0.4
+  flutter_windowmanager: ^0.2.0
 
 dev_dependencies:
   flutter_test:
