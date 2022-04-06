@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:e_task/providers/tasks.dart';
 import 'package:e_task/screens/edit_task_screen.dart';
 import 'package:e_task/widgets/task_list.dart';
@@ -19,6 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
   var _isInit = true;
   var _isLoading = false;
 
+  // * useful tips: ClassName()..function1()..function2(); call method one after one
+  // * adaptive for android and iphone ui design with 'adaptive'
+  // * SwitchListTile.adaptive(
+  // * title: const Text('Lights'),
+  // * value: _isSelected,
+  // * onChanged: onChanged,
+  // * secondary: Icon(Icons.adaptive.share),
+  // * );
+
   @override
   void initState() {
     // Provider.of<Products>(context).fetchAndSetProducts(); //  not working
@@ -27,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // });
     // or in didChangeDependencies
     super.initState();
+    log('initState test');
+    throw ('initState test throw error');
   }
 
   @override
@@ -48,43 +61,45 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ETask'),
-        actions: [
-          PopupMenuButton(
-            onSelected: (HomeOptions selectedValue) {
-              setState(() {
-                if (selectedValue == HomeOptions.Add) {
-                  // _showOnlyCompleted = true;
-                   Navigator.of(context).pushNamed(EditTaskScreen.routeName);
-                } 
-                // else {
-                //   _showOnlyCompleted = false;
-                // }
-              });
-            },
-            itemBuilder: (_) => [
-              const PopupMenuItem(child: Text('Add Task (Employer Test)'), value: HomeOptions.Add),
-              // const PopupMenuItem(child: Text('Show All'), value: HomeOptions.Show),
-            ],
-            icon: const Icon(Icons.add),
-          ),
-          // Consumer<Cart>(
-          //   builder: (_, cart, ch) => Badge(
-          //     child: ch,
-          //     value: cart.itemCount.toString(),
-          //   ),
-          //   child: IconButton(
-          //     icon: const Icon(Icons.shopping_cart),
-          //     onPressed: () {
-          //       // Navigator.of(context).pushNamed(CartScreen.routeName);
-          //     },
-          //   ),
-          // ),
-        ],
-      ),
-      drawer: AppDrawer(),
-      body: _isLoading ? const Center(child: CircularProgressIndicator()) : TaskList()// ProductsGrid(_showOnlyFavorites),
-    );
+        appBar: AppBar(
+          title: const Text('ETask'),
+          actions: [
+            PopupMenuButton(
+              onSelected: (HomeOptions selectedValue) {
+                setState(() {
+                  if (selectedValue == HomeOptions.Add) {
+                    // _showOnlyCompleted = true;
+                    Navigator.of(context).pushNamed(EditTaskScreen.routeName);
+                  }
+                  // else {
+                  //   _showOnlyCompleted = false;
+                  // }
+                });
+              },
+              itemBuilder: (_) => [
+                const PopupMenuItem(child: Text('Add Task (Employer Test)'), value: HomeOptions.Add),
+                // const PopupMenuItem(child: Text('Show All'), value: HomeOptions.Show),
+              ],
+              icon: const Icon(Icons.add),
+            ),
+            // Consumer<Cart>(
+            //   builder: (_, cart, ch) => Badge(
+            //     child: ch,
+            //     value: cart.itemCount.toString(),
+            //   ),
+            //   child: IconButton(
+            //     icon: const Icon(Icons.shopping_cart),
+            //     onPressed: () {
+            //       // Navigator.of(context).pushNamed(CartScreen.routeName);
+            //     },
+            //   ),
+            // ),
+          ],
+        ),
+        drawer: AppDrawer(),
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : TaskList() // ProductsGrid(_showOnlyFavorites),
+        );
   }
 }

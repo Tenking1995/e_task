@@ -227,6 +227,16 @@ class _AuthCardState extends State<AuthCard> {
                       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                     ),
                   ),
+                ElevatedButton(
+                  onPressed: _submit,
+                  child: Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).primaryColor,
+                    onPrimary: Colors.white,
+                    shape: const StadiumBorder(),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                  ),
+                ),
                 TextButton(
                   onPressed: _switchAuthMode,
                   child: Text('${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),

@@ -1,0 +1,6 @@
+enum TagList {
+  PURPICKS,
+  CERT_CLEAN,
+  VEGAN,
+  GLUTEN_FREE,
+}
