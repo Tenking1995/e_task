@@ -41,6 +41,7 @@ class Blogs with ChangeNotifier {
             title: currentPost['title'],
             author: Author.fromJson(currentPost['author']),
             date: DateTime.parse(currentPost['date']),
+            url: currentPost['URL'],
           ),
         );
       }

@@ -18,6 +18,7 @@ class _BlogListState extends State<BlogList> {
   }
 
   final dateAfterController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -44,7 +45,7 @@ class _BlogListState extends State<BlogList> {
                     onTap: () {
                       _selectDate(context);
                     },
-                    child: TextFormField(
+                    child: TextField(
                       enabled: false,
                       controller: dateAfterController,
                       decoration: InputDecoration(
@@ -75,18 +76,24 @@ class _BlogListState extends State<BlogList> {
               ],
             ),
           ),
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () => _refreshBlogs(context, selectedDate.toString()),
-              child: ListView.builder(
-                itemCount: blogs.length,
-                itemBuilder: (ctx, i) {
-                  return ChangeNotifierProvider.value(
-                    value: blogs[i],
+          SizedBox(
+            height: 200,
+            child: ListView.builder(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              itemCount: blogs.length,
+              itemBuilder: (ctx, i) {
+                double mWidth =
+                    MediaQuery.of(context).size.width * 0.8 > 500 ? 500 : MediaQuery.of(context).size.width * 0.8;
+                return ChangeNotifierProvider.value(
+                  value: blogs[i],
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    width: mWidth,
                     child: BlogItem(item: blogs[i]),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -106,6 +113,11 @@ class _BlogListState extends State<BlogList> {
         selectedDate = selected;
         dateAfterController.text = DateFormat('yyyy-MM-dd').format(selected);
         _refreshBlogs(context, selectedDate.toString());
+        _scrollController.animateTo(
+          0.0,
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 300),
+        );
       });
     }
   }

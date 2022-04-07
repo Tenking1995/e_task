@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../providers/blogs.dart';
 
@@ -56,6 +57,23 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                 softWrap: true,
               ),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () async {
+                String url = loadedBlog.url ?? '';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              child: const Text('View Blog'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.teal,
+                onPrimary: Colors.white,
+                onSurface: Colors.grey,
+              ),
+            )
           ],
         ),
       ),
