@@ -1,4 +1,3 @@
 class Constants {
-  static const baseUrl = 'https://etask-f5eec-default-rtdb.asia-southeast1.firebasedatabase.app/';
-  static const apiKey = 'AIzaSyBGKnT4KzeNWlKa2TKZv-kazP89gSyHJ38';
+  static const baseUrl = 'https://public-api.wordpress.com/rest/v1.1/sites/en.blog.wordpress.com/';
 }

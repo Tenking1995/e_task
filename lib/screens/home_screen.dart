@@ -1,16 +1,12 @@
-import 'package:e_task/providers/tasks.dart';
-import 'package:e_task/screens/edit_task_screen.dart';
-import 'package:e_task/widgets/task_list.dart';
+import 'package:e_task/providers/blogs.dart';
+import 'package:e_task/widgets/blog_list.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
-enum HomeOptions {
-  Add,
-  Show,
-}
-
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -35,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Tasks>(context).fetchAndSetTasks().then((_) {
+      Provider.of<Blogs>(context).fetchAndSetBlogs(null).then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -48,43 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ETask'),
-        actions: [
-          PopupMenuButton(
-            onSelected: (HomeOptions selectedValue) {
-              setState(() {
-                if (selectedValue == HomeOptions.Add) {
-                  // _showOnlyCompleted = true;
-                   Navigator.of(context).pushNamed(EditTaskScreen.routeName);
-                } 
-                // else {
-                //   _showOnlyCompleted = false;
-                // }
-              });
-            },
-            itemBuilder: (_) => [
-              const PopupMenuItem(child: Text('Add Task (Employer Test)'), value: HomeOptions.Add),
-              // const PopupMenuItem(child: Text('Show All'), value: HomeOptions.Show),
-            ],
-            icon: const Icon(Icons.add),
-          ),
-          // Consumer<Cart>(
-          //   builder: (_, cart, ch) => Badge(
-          //     child: ch,
-          //     value: cart.itemCount.toString(),
-          //   ),
-          //   child: IconButton(
-          //     icon: const Icon(Icons.shopping_cart),
-          //     onPressed: () {
-          //       // Navigator.of(context).pushNamed(CartScreen.routeName);
-          //     },
-          //   ),
-          // ),
-        ],
-      ),
-      drawer: AppDrawer(),
-      body: _isLoading ? const Center(child: CircularProgressIndicator()) : TaskList()// ProductsGrid(_showOnlyFavorites),
-    );
+        appBar: AppBar(
+          title: const Text('Blogs'),
+        ),
+        drawer: const AppDrawer(),
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : const BlogList() // ProductsGrid(_showOnlyFavorites),
+        );
   }
 }

@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../providers/blog_model.dart';
+import '../screens/blog_details_screen.dart';
+
+class BlogItem extends StatelessWidget {
+  final BlogModel item;
+
+  const BlogItem({Key? key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: ListTile(
+        title: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 4,
+          color: Colors.grey[100],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.title ?? '-',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text('Author: ${item.author?.name}'),
+                Text('Date: ${DateFormat('yyyy-MM-dd – hh:mm a').format(item.date!)}'),
+              ],
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            BlogDetailsScreen.routeName,
+            arguments: item.id.toString(),
+          );
+        },
+      ),
+    );
+  }
+}
