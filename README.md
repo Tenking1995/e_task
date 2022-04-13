@@ -1,4 +1,4 @@
-# e_task
+# my_app
 
 A new Flutter project.
 

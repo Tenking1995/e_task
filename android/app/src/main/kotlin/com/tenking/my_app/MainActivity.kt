@@ -1,4 +1,4 @@
-package com.example.e_task
+package com.tenking.my_app
 
 import io.flutter.embedding.android.FlutterActivity
 

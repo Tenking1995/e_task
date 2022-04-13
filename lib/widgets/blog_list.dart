@@ -1,4 +1,4 @@
-import 'package:e_task/widgets/blog_item.dart';
+import 'package:my_app/widgets/blog_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

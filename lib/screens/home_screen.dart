@@ -1,5 +1,5 @@
-import 'package:e_task/providers/blogs.dart';
-import 'package:e_task/widgets/blog_list.dart';
+import 'package:my_app/providers/blogs.dart';
+import 'package:my_app/widgets/blog_list.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
