@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../providers/blog_model.dart';
 import '../providers/blogs.dart';
 
 class BlogDetailsScreen extends StatefulWidget {
@@ -17,15 +18,18 @@ class BlogDetailsScreen extends StatefulWidget {
 class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    final blogId = ModalRoute.of(context)?.settings.arguments as String;
-    var loadedBlog = Provider.of<Blogs>(
-      context,
-      listen: false,
-    ).findById(int.parse(blogId));
+    BlogModel? loadedBlog;
+    if (ModalRoute.of(context)?.settings.arguments is String) {
+      String blogId = ModalRoute.of(context)?.settings.arguments as String;
+      loadedBlog = Provider.of<Blogs>(
+        context,
+        listen: false,
+      ).findById(int.parse(blogId));
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(loadedBlog.title ?? ""),
+        title: Text(loadedBlog?.title ?? ""),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,7 +39,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
-                'Title: ${loadedBlog.title}',
+                'Title: ${loadedBlog?.title}',
                 softWrap: true,
               ),
             ),
@@ -44,7 +48,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
-                'Author: ${loadedBlog.author?.name}',
+                'Author: ${loadedBlog?.author?.name}',
                 softWrap: true,
               ),
             ),
@@ -53,14 +57,14 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
-                'Date: ${DateFormat('yyyy-MM-dd – hh:mm a').format(loadedBlog.date!)}',
+                loadedBlog?.date != null ? 'Date: ${DateFormat('yyyy-MM-dd – hh:mm a').format(loadedBlog!.date!)}' : '',
                 softWrap: true,
               ),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
-                String url = loadedBlog.url ?? '';
+                String url = loadedBlog?.url ?? '';
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {

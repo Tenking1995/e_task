@@ -42,6 +42,7 @@ dependencies:
   my_test_package:
     path: /Users/tenking/Developer/playground/tt_components
   change_app_package_name: any
+  page_transition: ^2.0.5
   
 dev_dependencies:
   flutter_test:

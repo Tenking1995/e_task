@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../application.dart';
 import '../providers/blog_model.dart';
 import '../screens/blog_details_screen.dart';
 
@@ -38,9 +39,11 @@ class BlogItem extends StatelessWidget {
           ),
         ),
         onTap: () {
-          Navigator.of(context).pushNamed(
+          Application.pushNameWithTransition(
+            context,
             BlogDetailsScreen.routeName,
             arguments: item.id.toString(),
+            transition: PageTransitionType.rightToLeftWithFade,
           );
         },
       ),

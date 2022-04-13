@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'application.dart';
 import 'screens/blog_details_screen.dart';
 
 void main() => runApp(const MyApp());
@@ -33,8 +34,26 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: const HomeScreen(),
-        routes: {
-          BlogDetailsScreen.routeName: (context) => const BlogDetailsScreen(),
+        // routes: {
+        //   BlogDetailsScreen.routeName: (context) => const BlogDetailsScreen(),
+        // },
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case BlogDetailsScreen.routeName:
+              // return PageTransition(
+              //   child: const BlogDetailsScreen(),
+              //   type: Application.defaultPageTransition,
+              //   duration: Application.defaultPageTransitionStartDuration,
+              //   settings: settings,
+              // );
+              return PageRouteBuilder(
+                  settings: settings, // Pass this to make popUntil(), pushNamedAndRemoveUntil(), works
+                  pageBuilder: (_, __, ___) => const BlogDetailsScreen(),
+                  transitionsBuilder: (_, a, __, c) => Application.getDefaultPageTransition(a, c));
+            default:
+              return null;
+            // return MaterialPageRoute(builder: (_) => UnknownPage());
+          }
         },
       ),
     );
