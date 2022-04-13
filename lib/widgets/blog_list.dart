@@ -76,8 +76,8 @@ class _BlogListState extends State<BlogList> {
               ],
             ),
           ),
-          SizedBox(
-            height: 200,
+          Container(
+            constraints: const BoxConstraints(maxHeight: 200),
             child: ListView.builder(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,

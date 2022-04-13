@@ -18,9 +18,10 @@ class BlogItem extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          elevation: 0,
+          elevation: 4,
           color: Colors.grey[100],
-          child: Padding(
+          child: Container(
+            height: 150,
             padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
