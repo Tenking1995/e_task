@@ -24,8 +24,13 @@ class MyApp extends StatelessWidget {
         title: 'Blogs',
         theme: ThemeData(
           // primarySwatch: Colors.purple,
-          colorScheme: Theme.of(context).colorScheme.copyWith(primary: Colors.blue[300], secondary: Colors.blue[700]),
+          colorScheme: Theme.of(context).colorScheme.copyWith(primary: Colors.blue[900], secondary: Colors.blue[300]),
           fontFamily: 'Lato',
+          textTheme: const TextTheme(
+            headline5: TextStyle(fontSize: 30.0, fontStyle: FontStyle.italic),
+            headline6: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+            bodyText2: TextStyle(fontSize: 15.0),
+          ),
         ),
         home: const HomeScreen(),
         routes: {
