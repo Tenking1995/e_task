@@ -1,29 +1,22 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:my_test_package/my_test_package.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../screens/auth_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/task_details_screen.dart';
 import './global_translations.dart';
-import 'AllControllersBinding.dart';
-import 'controllers/my_controller.dart';
-import 'views/my_view.dart';
 
 class GetxFeatures extends GetxController {
-  Widget tmp = getMyButton();
-
   void showCustomSnackbar() {
     Get.snackbar(
       "Get SnackBar title", "Get SnackBar message",
@@ -122,25 +115,23 @@ class GetxFeatures extends GetxController {
 
   void showBottomSheet() {
     Get.bottomSheet(
-      Container(
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.ac_unit_outlined),
-              title: const Text('Listile 1'),
-              onTap: () {
-                Get.changeTheme(ThemeData.light());
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.accessible),
-              title: const Text('Listile 2'),
-              onTap: () {
-                Get.changeTheme(ThemeData.dark());
-              },
-            ),
-          ],
-        ),
+      Wrap(
+        children: [
+          ListTile(
+            leading: const Icon(Icons.ac_unit_outlined),
+            title: const Text('Listile 1'),
+            onTap: () {
+              Get.changeTheme(ThemeData.light());
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.accessible),
+            title: const Text('Listile 2'),
+            onTap: () {
+              Get.changeTheme(ThemeData.dark());
+            },
+          ),
+        ],
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -159,7 +150,7 @@ class GetxFeatures extends GetxController {
 
   void routeWithUnNamedRoutes() {
     Get.to(
-      TaskDetailsScreen(),
+      const TaskDetailsScreen(),
       // fullscreenDialog: true, //open with dialog style (top left is cancel button instead of back button)
       transition: Transition.leftToRight,
       duration: const Duration(microseconds: 400),
@@ -194,14 +185,17 @@ class GetxFeatures extends GetxController {
       // initialBinding: AllControllersBinding(),
       title: "GetMaterialApp title",
       initialRoute: '/',
-      unknownRoute: GetPage(name: '/notFound', page: () => AuthScreen()),
+      unknownRoute: GetPage(
+        name: '/notFound',
+        page: () => const AuthScreen(),
+      ),
       defaultTransition: Transition.leftToRightWithFade,
       getPages: [
         // GetPage(name: '/', page: () => MyApp()),
-        GetPage(name: '/home', page: () => HomeScreen()),
+        GetPage(name: '/home', page: () => const HomeScreen()),
         GetPage(
           name: '/Task',
-          page: () => TaskDetailsScreen(),
+          page: () => const TaskDetailsScreen(),
           transition: Transition.rightToLeft,
         ),
         // * No need declare one by one if using initialBinding for "binding"
@@ -406,7 +400,11 @@ class GetxFeatures extends GetxController {
         stickyAuth: true,
         androidAuthStrings: androidMesage,
       );
-    } catch (e) {}
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   // * scan qr code
@@ -417,7 +415,7 @@ class GetxFeatures extends GetxController {
   // * <string>Camera permission is required for barcode scanning.</string>
   Future<void> scanBarcode() async {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode("#ff6666", "Cancel", false, ScanMode.QR);
-    if (scanBarcode != '-1') {
+    if (barcodeScanRes != '-1') {
       // got result
     }
   }

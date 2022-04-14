@@ -6,54 +6,55 @@ import 'dart:convert';
 
 import '../common/enums.dart';
 
-List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(json.decode(str).map((x) => ProductModel.fromJson(x)));
+List<ProductModel> productModelFromJson(String str) =>
+    List<ProductModel>.from(json.decode(str).map((x) => ProductModel.fromJson(x)));
 
 String productModelToJson(List<ProductModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductModel {
-    ProductModel({
-        this.id,
-        this.brand,
-        this.name,
-        this.price,
-        this.priceSign,
-        this.currency,
-        this.imageLink,
-        this.productLink,
-        this.websiteLink,
-        this.description,
-        this.rating,
-        this.category,
-        this.productType,
-        this.tagList,
-        this.createdAt,
-        this.updatedAt,
-        this.productApiUrl,
-        this.apiFeaturedImage,
-        this.productColors,
-    });
+  ProductModel({
+    this.id,
+    this.brand,
+    this.name,
+    this.price,
+    this.priceSign,
+    this.currency,
+    this.imageLink,
+    this.productLink,
+    this.websiteLink,
+    this.description,
+    this.rating,
+    this.category,
+    this.productType,
+    this.tagList,
+    this.createdAt,
+    this.updatedAt,
+    this.productApiUrl,
+    this.apiFeaturedImage,
+    this.productColors,
+  });
 
-    int? id;
-    String? brand;
-    String? name;
-    String? price;
-    String? priceSign;
-    String? currency;
-    String? imageLink;
-    String? productLink;
-    String? websiteLink;
-    String? description;
-    dynamic rating;
-    String? category;
-    String? productType;
-    List<TagList>? tagList;
-    DateTime? createdAt;
-    DateTime? updatedAt;
-    String? productApiUrl;
-    String? apiFeaturedImage;
-    List<ProductColor>? productColors;
+  int? id;
+  String? brand;
+  String? name;
+  String? price;
+  String? priceSign;
+  String? currency;
+  String? imageLink;
+  String? productLink;
+  String? websiteLink;
+  String? description;
+  dynamic rating;
+  String? category;
+  String? productType;
+  List<TagList>? tagList;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? productApiUrl;
+  String? apiFeaturedImage;
+  List<ProductColor>? productColors;
 
-    factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
         brand: json["brand"],
         name: json["name"],
@@ -73,9 +74,9 @@ class ProductModel {
         productApiUrl: json["product_api_url"],
         apiFeaturedImage: json["api_featured_image"],
         productColors: List<ProductColor>.from(json["product_colors"].map((x) => ProductColor.fromJson(x))),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "brand": brand,
         "name": name,
@@ -95,46 +96,44 @@ class ProductModel {
         "product_api_url": productApiUrl,
         "api_featured_image": apiFeaturedImage,
         "product_colors": productColors == null ? null : List<dynamic>.from(productColors!.map((x) => x.toJson())),
-    };
+      };
 }
 
 class ProductColor {
-    ProductColor({
-        this.hexValue,
-        this.colourName,
-    });
+  ProductColor({
+    this.hexValue,
+    this.colourName,
+  });
 
-    String? hexValue;
-    String? colourName;
+  String? hexValue;
+  String? colourName;
 
-    factory ProductColor.fromJson(Map<String, dynamic> json) => ProductColor(
+  factory ProductColor.fromJson(Map<String, dynamic> json) => ProductColor(
         hexValue: json["hex_value"],
         colourName: json["colour_name"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "hex_value": hexValue,
         "colour_name": colourName,
-    };
+      };
 }
 
 final tagListValues = EnumValues({
-    "CertClean": TagList.CERT_CLEAN,
-    "Gluten Free": TagList.GLUTEN_FREE,
-    "purpicks": TagList.PURPICKS,
-    "Vegan": TagList.VEGAN
+  "CertClean": TagList.certClean,
+  "Gluten Free": TagList.glutenFree,
+  "purpicks": TagList.purpicks,
+  "Vegan": TagList.vegan
 });
 
 class EnumValues<T> {
-    Map<String, T> map;
-    Map<T, String>? reverseMap;
+  Map<String, T> map;
+  Map<T, String>? reverseMap;
 
-    EnumValues(this.map);
+  EnumValues(this.map);
 
-    Map<T, String>? get reverse {
-        if (reverseMap == null) {
-            reverseMap = map.map((k, v) => new MapEntry(v, k));
-        }
-        return reverseMap;
-    }
+  Map<T, String>? get reverse {
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

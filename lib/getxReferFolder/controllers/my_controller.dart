@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -99,7 +100,9 @@ class MyController extends GetxController with StateMixin<List<ProductModel>? /*
     try {
       connectivityResult = _connectivity.checkConnectivity() as ConnectivityResult;
     } on PlatformException catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     _updateConnectionStatus(connectivityResult);
   }

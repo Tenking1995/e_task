@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../providers/tasks.dart';
 
 class TaskList extends StatelessWidget {
+  const TaskList({Key? key}) : super(key: key);
+
   // final bool showCompleted;
 
   // TaskList(this.showCompleted);

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,12 +10,12 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
       backgroundColor: Colors.black45,
       barBlur: 8.0,
       snackPosition: SnackPosition.BOTTOM,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
         left: 10.0,
         right: 10.0,
       ),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
   }
 
@@ -25,16 +24,16 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
     Get.snackbar(
       title,
       message,
-      backgroundColor: Color(0x8AD32F2F),
+      backgroundColor: const Color(0x8AD32F2F),
       barBlur: 10.0,
       snackPosition: SnackPosition.BOTTOM,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
         left: 10.0,
         right: 10.0,
       ),
-      duration: Duration(seconds: 2),
-      icon: Icon(
+      duration: const Duration(seconds: 2),
+      icon: const Icon(
         Icons.error,
         color: Colors.white,
       ),
@@ -46,16 +45,16 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
     Get.snackbar(
       title,
       message,
-      backgroundColor: Color(0x8A2E7D32),
+      backgroundColor: const Color(0x8A2E7D32),
       barBlur: 10.0,
       snackPosition: SnackPosition.BOTTOM,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
         left: 10.0,
         right: 10.0,
       ),
-      duration: Duration(seconds: 2),
-      icon: Icon(
+      duration: const Duration(seconds: 2),
+      icon: const Icon(
         Icons.check_circle,
         color: Colors.white,
       ),
@@ -65,12 +64,12 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
   @override
   void showSimpleSnackBar({String message = ""}) {
     Get.showSnackbar(
-      GetBar(
+      GetSnackBar(
         messageText: Text(
           message,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -78,17 +77,17 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
   @override
   void showSimpleErrorSnackBar({String message = ""}) {
     Get.showSnackbar(
-      GetBar(
+      GetSnackBar(
         backgroundColor: Colors.red,
-        icon: Icon(
+        icon: const Icon(
           Icons.error,
           color: Colors.white,
         ),
         messageText: Text(
           message,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
@@ -96,21 +95,22 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
   @override
   void showSimpleSuccessSnackBar({String message = ""}) {
     Get.showSnackbar(
-      GetBar(
+      GetSnackBar(
         backgroundColor: Colors.green,
-        icon: Icon(
+        icon: const Icon(
           Icons.check_circle,
           color: Colors.white,
         ),
         messageText: Text(
           message,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
 
+  @override
   void showAlert({
     String title = "Alert",
     String content = "Alert",
@@ -233,12 +233,12 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
         color: Colors.black26,
         child: Center(
           child: Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: CircularProgressIndicator(),
+            child: const CircularProgressIndicator(),
           ),
         ),
       ),

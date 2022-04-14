@@ -8,11 +8,13 @@ import '../widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
 enum HomeOptions {
-  Add,
-  Show,
+  add,
+  show,
 }
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -39,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // or in didChangeDependencies
     super.initState();
     log('initState test');
-    throw ('initState test throw error');
+    // throw ('initState test throw error');
   }
 
   @override
@@ -67,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             PopupMenuButton(
               onSelected: (HomeOptions selectedValue) {
                 setState(() {
-                  if (selectedValue == HomeOptions.Add) {
+                  if (selectedValue == HomeOptions.add) {
                     // _showOnlyCompleted = true;
                     Navigator.of(context).pushNamed(EditTaskScreen.routeName);
                   }
@@ -77,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               itemBuilder: (_) => [
-                const PopupMenuItem(child: Text('Add Task (Employer Test)'), value: HomeOptions.Add),
+                const PopupMenuItem(child: Text('Add Task (Employer Test)'), value: HomeOptions.add),
                 // const PopupMenuItem(child: Text('Show All'), value: HomeOptions.Show),
               ],
               icon: const Icon(Icons.add),
@@ -96,10 +98,10 @@ class _HomeScreenState extends State<HomeScreen> {
             // ),
           ],
         ),
-        drawer: AppDrawer(),
+        drawer: const AppDrawer(),
         body: _isLoading
             ? const Center(child: CircularProgressIndicator())
-            : TaskList() // ProductsGrid(_showOnlyFavorites),
+            : const TaskList() // ProductsGrid(_showOnlyFavorites),
         );
   }
 }

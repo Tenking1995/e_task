@@ -1,10 +1,7 @@
 import 'package:e_task/screens/edit_task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/auth.dart';
-import '../providers/task.dart';
 import '../screens/task_details_screen.dart';
 
 class TaskItem extends StatelessWidget {
@@ -13,7 +10,7 @@ class TaskItem extends StatelessWidget {
   final int progress;
   final bool isEditFlow;
 
-  const TaskItem(this.id, this.title, this.progress, {this.isEditFlow = false});
+  const TaskItem(this.id, this.title, this.progress, {Key? key, this.isEditFlow = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

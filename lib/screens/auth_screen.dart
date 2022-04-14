@@ -4,10 +4,15 @@ import 'package:provider/provider.dart';
 import '../models/http_exception.dart';
 import '../providers/auth.dart';
 
-enum AuthMode { Signup, Login }
+enum AuthMode {
+  signUp,
+  login,
+}
 
 class AuthScreen extends StatelessWidget {
   static const routeName = '/auth';
+
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +67,7 @@ class AuthCard extends StatefulWidget {
 
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  AuthMode _authMode = AuthMode.Login;
+  AuthMode _authMode = AuthMode.login;
   final Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -99,7 +104,7 @@ class _AuthCardState extends State<AuthCard> {
     });
 
     try {
-      if (_authMode == AuthMode.Login) {
+      if (_authMode == AuthMode.login) {
         // Log user in
         await Provider.of<Auth>(context, listen: false).login(
           _authData['email'] ?? "",
@@ -137,13 +142,13 @@ class _AuthCardState extends State<AuthCard> {
   }
 
   void _switchAuthMode() {
-    if (_authMode == AuthMode.Login) {
+    if (_authMode == AuthMode.login) {
       setState(() {
-        _authMode = AuthMode.Signup;
+        _authMode = AuthMode.signUp;
       });
     } else {
       setState(() {
-        _authMode = AuthMode.Login;
+        _authMode = AuthMode.login;
       });
     }
   }
@@ -157,8 +162,8 @@ class _AuthCardState extends State<AuthCard> {
       ),
       elevation: 8.0,
       child: Container(
-        height: _authMode == AuthMode.Signup ? 320 : 260,
-        constraints: BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+        height: _authMode == AuthMode.signUp ? 320 : 260,
+        constraints: BoxConstraints(minHeight: _authMode == AuthMode.signUp ? 320 : 260),
         width: deviceSize.width * 0.75,
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -197,12 +202,12 @@ class _AuthCardState extends State<AuthCard> {
                     }
                   },
                 ),
-                if (_authMode == AuthMode.Signup)
+                if (_authMode == AuthMode.signUp)
                   TextFormField(
-                    enabled: _authMode == AuthMode.Signup,
+                    enabled: _authMode == AuthMode.signUp,
                     decoration: const InputDecoration(labelText: 'Confirm Password'),
                     obscureText: true,
-                    validator: _authMode == AuthMode.Signup
+                    validator: _authMode == AuthMode.signUp
                         ? (value) {
                             if (value != _passwordController.text) {
                               return 'Passwords do not match!';
@@ -219,7 +224,7 @@ class _AuthCardState extends State<AuthCard> {
                 else
                   ElevatedButton(
                     onPressed: _submit,
-                    child: Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                    child: Text(_authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
                       onPrimary: Colors.white,
@@ -227,19 +232,9 @@ class _AuthCardState extends State<AuthCard> {
                       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                     ),
                   ),
-                ElevatedButton(
-                  onPressed: _submit,
-                  child: Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).primaryColor,
-                    onPrimary: Colors.white,
-                    shape: const StadiumBorder(),
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                  ),
-                ),
                 TextButton(
                   onPressed: _switchAuthMode,
-                  child: Text('${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                  child: Text('${_authMode == AuthMode.login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
                   style: TextButton.styleFrom(
                     primary: Theme.of(context).primaryColor,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,

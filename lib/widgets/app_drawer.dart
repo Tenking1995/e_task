@@ -5,6 +5,8 @@ import '../providers/auth.dart';
 import '../providers/tasks.dart';
 
 class AppDrawer extends StatelessWidget {
+  const AppDrawer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(

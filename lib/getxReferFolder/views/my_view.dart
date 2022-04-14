@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,6 +10,8 @@ import '../controllers/my_controller.dart';
 class MyView extends GetResponsiveView<
     MyController> /* can extend getView as well, GetResponsiveView can use for identity the current device type like phone or tablet or desktop */ {
   var storage = GetStorage();
+
+  MyView({Key? key}) : super(key: key);
   // GetStorage g = GetStorage('MyStorage');
 
   void myStorageFunction() {
@@ -24,10 +27,14 @@ class MyView extends GetResponsiveView<
     storage.erase();
     // * listen changes
     var listen = storage.listen(() {
-      print('email changed');
+      if (kDebugMode) {
+        print('email changed');
+      }
     });
     storage.listenKey('key', (value) {
-      print('new key is $value');
+      if (kDebugMode) {
+        print('new key is $value');
+      }
     });
     // * need dispose when no need
     // storage.removeListen(listen);
@@ -60,7 +67,7 @@ class MyView extends GetResponsiveView<
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: Text('My Scaffold Title')),
+        appBar: AppBar(title: const Text('My Scaffold Title')),
         body: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
@@ -69,7 +76,7 @@ class MyView extends GetResponsiveView<
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   labelText: 'Email',
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: const Icon(Icons.email),
                 ),
               ),
               // * Simple observable

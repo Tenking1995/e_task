@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AppTranslations extends Translations {
-  static const String LANGUAGE_CODE = "language_code";
+  static const String languageCode = "language_code";
   static const locale = Locale("en");
   static const fallbackLocale = Locale("en");
   static Map<String, String> en = {
@@ -20,19 +20,19 @@ class AppTranslations extends Translations {
 
   static void init() {
     final box = GetStorage();
-    String? languageCode = box.read(LANGUAGE_CODE);
-    if (languageCode == null) {
+    String? mLanguageCode = box.read(languageCode);
+    if (mLanguageCode == null) {
       Get.updateLocale(locale);
-      box.write(LANGUAGE_CODE, "en");
+      box.write(languageCode, "en");
     } else {
-      Get.updateLocale(Locale(languageCode));
+      Get.updateLocale(Locale(mLanguageCode));
     }
   }
 
   static void updateLocale({String languageCode = "en"}) {
     final box = GetStorage();
     Get.updateLocale(Locale(languageCode));
-    box.write(LANGUAGE_CODE, languageCode);
+    box.write(languageCode, languageCode);
   }
 
   @override

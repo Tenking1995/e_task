@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,13 +17,17 @@ class Service extends GetxService {
 // * Example at main view
 Future<void> main() async {
   await initService();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 Future<void> initService() async {
-  print('starting services ...');
-  await Get.putAsync<Service>(() async => await Service());
-  print('Al services started ...');
+  if (kDebugMode) {
+    print('starting services ...');
+  }
+  await Get.putAsync<Service>(() async => Service());
+  if (kDebugMode) {
+    print('Al services started ...');
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -30,8 +35,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(child: Text('Click'), onPressed: () {Get.find<Service>().incrementCounter();},)
+    return ElevatedButton(
+      child: const Text('Click'),
+      onPressed: () {
+        Get.find<Service>().incrementCounter();
+      },
     );
   }
 }

@@ -7,6 +7,8 @@ import '../providers/tasks.dart';
 class TaskDetailsScreen extends StatefulWidget {
   static const routeName = '/task-details';
 
+  const TaskDetailsScreen({Key? key}) : super(key: key);
+
   @override
   State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();
 }
@@ -103,12 +105,12 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text('Progress'),
+                            title: const Text('Progress'),
                             content: TextField(
                               onChanged: (value) {},
                               keyboardType: TextInputType.number,
                               controller: _progressTextFieldController,
-                              decoration: InputDecoration(hintText: "Enter Value"),
+                              decoration: const InputDecoration(hintText: "Enter Value"),
                             ),
                             actions: [
                               TextButton(

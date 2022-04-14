@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 // * 1st Manually control the animation
 

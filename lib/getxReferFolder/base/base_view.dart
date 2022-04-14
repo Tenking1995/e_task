@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'base_controller.dart';
 
 abstract class BaseView<T extends BaseController> extends GetResponsiveView<T> {
   BaseView({Key? key}) : super(key: key);
 
+  @override
   final String? tag = null;
+  @override
   T get controller => GetInstance().find<T>(tag: tag);
 
   @override

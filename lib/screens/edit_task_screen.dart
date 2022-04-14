@@ -10,6 +10,8 @@ import '../providers/tasks.dart';
 class EditTaskScreen extends StatefulWidget {
   static const routeName = '/edit-product';
 
+  const EditTaskScreen({Key? key}) : super(key: key);
+
   @override
   State<EditTaskScreen> createState() => _EditTaskScreenState();
 }
@@ -318,7 +320,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                                 });
                           },
                           child: Text(
-                            _selectedEmployee == null ? 'Choose employee' : 'Employee id: ${_selectedEmployee}',
+                            _selectedEmployee == null ? 'Choose employee' : 'Employee id: $_selectedEmployee',
                             style: const TextStyle(color: Colors.blue),
                           ),
                         ),
@@ -334,8 +336,8 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: Text('Delete Task'),
-                                          content: Text('Confirm to delete task?'),
+                                          title: const Text('Delete Task'),
+                                          content: const Text('Confirm to delete task?'),
                                           actions: [
                                             TextButton(
                                               child: const Text(' Yes'),
@@ -357,7 +359,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                                       },
                                     );
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Delete Task',
                                   ),
                                 ),
