@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
+import '../base/base_controller.dart';
 import '../models/product_model.dart';
 import '../services/api_service.dart';
 
@@ -19,7 +19,7 @@ class MyBinding extends Bindings {
   }
 }
 
-class MyController extends GetxController with StateMixin<List<ProductModel>? /* Based on api used model class */ > {
+class MyController extends BaseController /*with StateMixin<List<ProductModel>?> Based on api used model class */ {
   var isLoading = true.obs;
   var productList = <ProductModel>[].obs;
   var internet = 0.obs;
@@ -42,11 +42,28 @@ class MyController extends GetxController with StateMixin<List<ProductModel>? /*
 
     // * with stateMixin and Getconnect
     // * in view use controller.obx ((data) => Container(...))
-    ApiConnectService().fetchProducts().then((resp) {
-      change(resp, status: RxStatus.success()); // * provided by stateMixin
-    }, onError: (err) {
-      change(null, status: RxStatus.error(err.toString())); // * provided by stateMixin
-    });
+    // ApiConnectService().fetchProducts().then((resp) {
+    //   change(resp, status: RxStatus.success()); // * provided by stateMixin
+    // }, onError: (err) {
+    //   change(null, status: RxStatus.error(err.toString())); // * provided by stateMixin
+    // });
+
+    // * Listen to target/variable when it changed
+    var count = 0.obs;
+    // * always trigger
+    ever(count, (value) {});
+    // * or
+    everAll([count], (value) {});
+
+    // * trigger once
+    once(count, (value) {});
+
+    // * trigger after stop changes 1 sec
+    debounce(count, (value) {}, time: const Duration(milliseconds: 1000));
+
+    // * trigger 1st changes and stop trigger within 1 sec
+    interval(count, (value) {}, time: const Duration(milliseconds: 1000));
+
     super.onInit();
   }
 

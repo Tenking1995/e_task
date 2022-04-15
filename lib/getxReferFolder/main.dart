@@ -25,6 +25,18 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: MyView(),
+      // theme: AppThemes.theme(),
+      // darkTheme: AppThemes.darkTheme(),
+      // themeMode: AppThemes().init(),
+      // locale: AppTranslations.locale,
+      // fallbackLocale: AppTranslations.fallbackLocale,
+      // translations: AppTranslations(),
+      // initialBinding: SplashBinding(),
+      // initialRoute: RouterName.splash,
+      // debugShowCheckedModeBanner: false,
+      // getPages: Pages.pages(),
+      // unknownRoute: Pages.unknownPage(),
+      // scrollBehavior: CustomScrollBehavior(),
     );
   }
 }

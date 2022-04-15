@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../constants.dart';
+import '../common/constants.dart';
 import '../models/http_exception.dart';
 import 'task.dart';
 
@@ -54,20 +54,19 @@ class Tasks with ChangeNotifier {
               progress: taskData['progress'],
             ));
           }
-        }
-        else {
+        } else {
           loadedTasks.add(Task(
-              id: taskId,
-              title: taskData['title'],
-              description: taskData['description'],
-              lastUpdatedDate: DateTime.tryParse(taskData['lastUpdatedDate']),
-              createdDate: DateTime.tryParse(taskData['createdDate']),
-              startDate: DateTime.tryParse(taskData['startDate']),
-              endDate: DateTime.tryParse(taskData['endDate']),
-              receiverId: taskData['receiverId'],
-              creatorId: taskData['creatorId'],
-              progress: taskData['progress'],
-            ));
+            id: taskId,
+            title: taskData['title'],
+            description: taskData['description'],
+            lastUpdatedDate: DateTime.tryParse(taskData['lastUpdatedDate']),
+            createdDate: DateTime.tryParse(taskData['createdDate']),
+            startDate: DateTime.tryParse(taskData['startDate']),
+            endDate: DateTime.tryParse(taskData['endDate']),
+            receiverId: taskData['receiverId'],
+            creatorId: taskData['creatorId'],
+            progress: taskData['progress'],
+          ));
         }
       });
       _items = loadedTasks;

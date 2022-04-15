@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../constants.dart';
+import '../common/constants.dart';
 import '../models/http_exception.dart';
 
 class Auth with ChangeNotifier {

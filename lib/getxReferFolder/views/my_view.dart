@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../base/base_view.dart';
 import '../controllers/my_controller.dart';
 
 // class MyView extends StatelessWidget {
-class MyView extends GetResponsiveView<
+class MyView extends BaseView<
     MyController> /* can extend getView as well, GetResponsiveView can use for identity the current device type like phone or tablet or desktop */ {
   var storage = GetStorage();
 
@@ -63,9 +64,99 @@ class MyView extends GetResponsiveView<
   // Get.putAsync<MyController>(() => await MyController());
 
   @override
-  Widget build(BuildContext context) {
+  Widget viewDesktopBuilder() {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('My Scaffold Title')),
+        body: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  labelText: 'Email',
+                  prefixIcon: const Icon(Icons.email),
+                ),
+              ),
+              // * Simple observable
+              // Obx(
+              //   () =>
+              //   // Text("Name: ${myController.student.name}"),
+              //   Text("Name: ${myController.student.value.name}"),
+              // ),
+              // const SizedBox(height: 10),
+              // ElevatedButton(
+              //   child: const Text("Convert"),
+              //   onPressed: () {
+              //     myController.convertToUpperCase();
+              //   },
+              // ),
+              // * Reactive State Manager || update
+              // GetX<MyController>(
+              //   init: MyController(),
+              // * use better approach like onInit() in controller
+              //   // initState: (data) => Get.find<MyController>().increment(),
+              // * use better approach like onClose() in controller
+              //   // dispose: (_) => Get.find<MyController>().dispose(),
+              //   builder: (controller) {
+              //     // return Text("Name: ${myController.count}");
+              //     return Text("Name: ${controller.count}");
+              //   },
+              // ),
+              // const SizedBox(height: 10),
+              // ElevatedButton(
+              //   child: const Text("Convert"),
+              //   onPressed: () {
+              //     // * Update
+              //     // myController.increment();
+              //     // Get.find<MyController>().increment();
+              //     // * if initState style no need to declare
+              //   },
+              // ),
+              // * GetX Unique ID inorder to trigger change only for this id component/GetBuilder
+              // GetBuilder<MyController>(
+              //   id: 'txtCount',
+              //   builder: (controller) {
+              //     return Text("Name: ${controller.count}");
+              //   },
+              // ),
+              // * Change Translation
+              // Text('Hello'.tr),
+              // ElevatedButton(
+              //   child: const Text("Change to Chinese"),
+              //   onPressed: () {
+              //     Get.find<MyController>().changeLanguage('zh', 'CH');
+              //   },
+              // ),
+              // * find controller with "Tag"
+              // Get.find<MyController>(tag: 'MyControllerTag');
+
+              // * obx provided by Mixin
+              // body: controller.obx(
+              //   (data) => Container(child: Text(data[0]['name'])),
+              //   onError: (err) => Center(child: Text(err ?? '')),
+              // ),
+
+              // * genrate qr Image
+              QrImage(
+                data: 'xxx',
+                size: 200,
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget viewMobileBuilder() {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(title: const Text('My Scaffold Title')),
         body: SingleChildScrollView(
