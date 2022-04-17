@@ -58,4 +58,8 @@ class Application {
         );
     }
   }
+
+  static getScreenWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
 }
