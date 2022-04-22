@@ -1,10 +1,31 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'common/app_color.dart';
 import 'screens/bottom_nav_bar_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Material(
+      child: Container(
+        color: AppColor.primary,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            details.exception.toString(),
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: AppColor.white,
+            ),
+          ),
+        ]),
+      ),
+    );
+  };
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
