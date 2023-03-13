@@ -12,6 +12,26 @@ void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // void fetchProducts() async {
+  //   try {
+  //     isLoading(true);
+  //     final result =
+  //         await httpService.request(url: "products", method: Method.GET);
+  //     if (result != null) {
+  //       if (result is d.Response) {
+  //         var products = List<ProductsModel>.from(
+  //             (result.data).map((x) => ProductsModel.fromJson(x)));
+  //         productList.value = products;
+  //         logger.d(products);
+  //       } else {
+  //         isLoading(false);
+  //       }
+  //     }
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

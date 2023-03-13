@@ -56,11 +56,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Blogs'),
+        centerTitle: true,
       ),
       drawer: const AppDrawer(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : IndexedStack(index: _selectedIndex, children: _items), // ProductsGrid(_showOnlyFavorites),
+          : IndexedStack(
+              index: _selectedIndex,
+              children: _items,
+            ), // ProductsGrid(_showOnlyFavorites),
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blue[900],
