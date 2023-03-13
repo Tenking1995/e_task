@@ -52,3 +52,98 @@ class Blogs with ChangeNotifier {
     }
   }
 }
+
+void main() {
+  final slips = {
+    'slip_23': {
+      'transactions': [123, 456],
+      'shop': 1
+    },
+    'slip_42': {
+      'transactions': [789],
+      'shop': 2,
+    },
+  };
+
+  final transactions = [
+    {
+      'id': 123,
+      'amount': 10.01,
+      'payout': false,
+    },
+    {
+      'id': 456,
+      'amount': 5.01,
+      'payout': true,
+    },
+    {
+      'id': 789,
+      'amount': 20.1,
+      'payout': false,
+    },
+  ];
+
+  final shops = [
+    [1, 'Zalando.de'],
+    [2, 'Amazon.com'],
+  ];
+
+  var mResult = new Map();
+  slips.forEach((k, v) {
+    String mKey = "${k}".substring(5);
+    var innerMap = new Map();
+
+    var mTransactionValues = v["transactions"] as List<int>;
+    innerMap['number_transactions'] = mTransactionValues.length;
+
+    var mShopValue = v["shop"] as int;
+    for (int i = 0; i < shops.length; i++) {
+      var id = shops[i];
+      if (id[0] == mShopValue) {
+        innerMap['shop'] = id[1];
+      }
+    }
+
+    var mTotalAmount = 0.0;
+    for (int i = 0; i < mTransactionValues.length; i++) {
+      var id = mTransactionValues[i];
+
+      for (int i = 0; i < transactions.length; i++) {
+        var transactionsId = transactions[i]['id'];
+        var transactionsAmount = transactions[i]['amount'] as double;
+        if (id == transactionsId) {
+          if ((transactions[i]['payout'] as bool) == false) {
+            mTotalAmount += transactionsAmount;
+          } else {
+            mTotalAmount -= transactionsAmount;
+          }
+        }
+      }
+
+      innerMap['total_amount'] = mTotalAmount;
+    }
+
+    mResult[mKey] = innerMap;
+  });
+  print(mResult);
+
+//   String ello = hello.substring(1);
+
+  // Your task: Use the three data sources above and create the following result.
+  // Bonus: Try to write as few lines as possible for your solution
+
+  final result = {
+    '23': {
+      'number_transactions': 2, // no of transactions per slip
+      'shop': 'Zalando.de', // shop title
+      'total_amount': 5, // total amount of transactions (a payout must be subtracted instead of added!)
+    },
+    '42': {
+      'number_transactions': 1,
+      'shop': 'Amazon.com',
+      'total_amount': 20.1,
+    },
+  };
+
+  print(result);
+}
